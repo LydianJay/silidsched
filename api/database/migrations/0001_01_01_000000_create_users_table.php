@@ -15,17 +15,35 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->string('idnum');
+            $table->enum('role', ['admin','user'])->default('user');
         });
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+
+        Schema::create('building', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
         });
+
+
+        Schema::create('room', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedInteger('building_id');
+            $table->string('room_name');
+            $table->enum('status', ['vacant', 'reserved', 'occupied']);
+        });
+
+        Schema::create('reservation', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('room_id');
+            $table->timestamp('reserved_date');
+            $table->float('duration'); // in hours
+        });
+
+        
+        
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();

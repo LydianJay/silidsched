@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name'          => 'SilidSched',
+    'app_owner'     => 'NEMSU Students',
 
     /*
     |--------------------------------------------------------------------------

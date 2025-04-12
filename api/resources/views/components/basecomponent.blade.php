@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>{{ config('app.name') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-            crossorigin="anonymous"></script>
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
     <style>
-        :root, [data-bs-theme=light] {
+        :root,
+        [data-bs-theme=light] {
             --bs-blue: #0d6efd;
             --bs-indigo: #6610f2;
             --bs-purple: #6f42c1;
@@ -131,73 +133,36 @@
             --bs-form-invalid-color: #dc3545;
             --bs-form-invalid-border-color: #dc3545;
         }
+
         .rectangle {
             height: 20vh;
             width: 100%;
             background-image: linear-gradient(to right, #007bff, #00d4ff);
         }
+
         .underline-input {
-            border: none;              /* Remove all borders */
-            border-bottom: 2px solid #3498db; /* Add a blue bottom border (underline)*/
-            outline: none;             /* Remove the outline when focused */
+            border: none;
+            /* Remove all borders */
+            border-bottom: 2px solid #3498db;
+            /* Add a blue bottom border (underline)*/
+            outline: none;
+            /* Remove the outline when focused */
         }
-        
+
         .underline-input:focus {
-            border-bottom-color: #2980b9; /* Darker blue when focused */
-            box-shadow: none;            /* Remove box-shadow on focus */
+            border-bottom-color: #2980b9;
+            /* Darker blue when focused */
+            box-shadow: none;
+            /* Remove box-shadow on focus */
         }
     </style>
 </head>
+
 <body>
-    <div class="container-fluid px-0">
-        <div class="rectangle position-absolute top-0"></div>
-    </div>
-    <div class="container-fluid px-0">
-        <div class="card position-absolute start-50 align-items-center w-75 shadow" style="transform: translateX(-50%); top: 15%;">
-            <div class="card-body">
-                <h5 class="fs-1 card-title text-center fw-bold ">Welcome!</h5>
 
-                <form action="">
-                    <div class="input-group mt-5">
-                        <span class="input-group-text bg-white border-0 px-1 flex-column justify-content-end py-0" id="button-addon2"><i class="text-primary fw-bold fs-1 bi bi-person"></i></span>
-                        <input type="text" class="underline-input" placeholder="username" aria-label="Recipient's username"
-                            aria-describedby="button-addon2">
-                    </div>
-                    <div class="input-group mt-2 mb-5">
-                        <span class="input-group-text bg-white border-0 px-1 flex-column justify-content-end py-0" id="button-addon2"><i class="text-primary fs-1 bi bi-lock"></i></span>
-                        <input type="text" class="underline-input" placeholder="password" aria-label="Recipient's username"
-                            aria-describedby="button-addon2">
-                    </div>
-                    
-                </form>
-            </div>
-            
-            
-        </div>
+    {{ $slot }}
 
-        
-        
-    </div>
-    <div class="container-fluid px-0">
-        <div class="input-group position-absolute start-50 justify-content-center"
-            style="transform: translateX(-50%); top: 55%;">
-            <button type="submit" class="btn btn-primary bg-gradient btn-lg">
-                Login
-            </button>
-        </div>
-    </div>
-
-    <div class="container-fluid px-0">
-        <div class="input-group position-absolute start-50 justify-content-center flex-column"
-            style="transform: translateX(-50%); top: 65%;">
-            <p class="fs-5 fw-bold text-center text-wrap mb-0">If you don't have an account</p>
-            <a href="#" class="btn btn-link fs-5 fw-bold p-0">Register</a>
-        </div>
-
-    </div>
-
-    <div class="container-fluid px-0">
-        <div class="rectangle position-absolute bottom-0"></div>
-    </div>
+    
 </body>
+
 </html>
