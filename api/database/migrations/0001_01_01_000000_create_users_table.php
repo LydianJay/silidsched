@@ -17,12 +17,14 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('idnum');
+            $table->string('profile_pic')->nullable()->default(null);
             $table->enum('role', ['admin','user'])->default('user');
         });
 
 
         Schema::create('building', function (Blueprint $table) {
             $table->id();
+            $table->string('building_img')->nullable();
             $table->string('name');
         });
 
