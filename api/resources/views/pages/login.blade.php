@@ -13,13 +13,13 @@
                             <span class="input-group-text bg-white border-0 px-1 flex-column justify-content-end py-0">
                                 <i class="text-primary fw-bold fs-1 bi bi-person"></i>
                             </span>
-                            <input type="text" name="name" class="underline-input" placeholder="username">
+                            <input type="text" name="name" class="underline-input" placeholder="username" autocomplete="off">
                         </div>
                         <div class="input-group mt-2 mb-5">
                             <span class="input-group-text bg-white border-0 px-1 flex-column justify-content-end py-0">
                                 <i class="text-primary fs-1 bi bi-lock"></i>
                             </span>
-                            <input type="password" name="password" class="underline-input" placeholder="password">
+                            <input type="password" name="password" class="underline-input" placeholder="password" autocomplete="off">
                         </div>
             
                 </div>

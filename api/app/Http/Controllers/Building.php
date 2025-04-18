@@ -19,11 +19,11 @@ class Building extends Controller
             'Occupied',
         ];
         $bldg_id = $request->input('bldg_id');
+        $room_index = $request->input('room_idx');
         $current = BuildingModel::withCount('rooms')->find($bldg_id);
 
         $index = $request->input('i') != '' && $request->input('i') != null ? $request->get('i') : 0;
 
-        $data = [];
         $buildings = [];
 
         switch($index) {
@@ -53,7 +53,13 @@ class Building extends Controller
         }
 
 
-        return view('pages.dashboard.buildings.reservation', ['current' => $current, 'nav_titles' => $nav_title, 'index' => $index, 'buildings' => $buildings]);
+        return view('pages.dashboard.buildings.reservation', [
+            'current'       => $current, 
+            'nav_titles'    => $nav_title, 
+            'index'         => $index, 
+            'buildings'     => $buildings,
+            'room_idx'      => $room_index,
+        ]);
     }
 
     public function upload(Request $request) {

@@ -18,7 +18,7 @@ Route::post('/login', [Login::class,'login'])->name('login');
 
 Route::middleware(['auth'])->group(function (){
     Route::get('/dashboard', [Dashboard::class,   'index'])->name(    'dashboard');
-    Route::get('/view_reservation', [Reservations::class,   'index'])->name(    'reservation');
+    Route::get('/view_reservation', [Reservations::class,   'index'])->name(    'view_reservation');
     Route::get('/add_buildings', [Building::class, 'index'])->name('add_building');
     Route::post('/upload_buildings', [Building::class, 'upload'])->name('upload_building');
     Route::get('/add_room', [Room::class, 'index'])->name('add_room');
@@ -26,4 +26,6 @@ Route::middleware(['auth'])->group(function (){
     
 
     Route::get('/reservation', [Building::class, 'reservation'])->name('reservation');
+
+    Route::post('/add_reservation', [Reservations::class, 'reserve'])->name('add_reservation');
 });

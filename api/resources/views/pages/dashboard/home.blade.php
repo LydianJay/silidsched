@@ -44,7 +44,7 @@
     
     <div class="container-fluid d-flex justify-content-between mt-3">
         <p class="fs-6 fw-bold">My Reservations</p>
-        <a href="{{ route('reservation') }}" class="fw-bold">View All</a>
+        <a href="{{ route('view_reservation') }}" class="fw-bold">View All</a>
     </div>
 
     <div class="w-100 d-flex flex-row  flex-nowrap overflow-scroll">
@@ -72,7 +72,7 @@
         
     </div>
 
-
+{{-- 
     <div class="d-flex flex-row justify-content-center   text-center text-nowrap">
         <button class="text-white py-2 px-4 btn rounded-4" style="background-color: #0D35E5;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-circle-dotted"
@@ -83,6 +83,6 @@
             <span class="fs-6 fw-bold m-0">Quick Reserve</span>
         </button>
        
-    </div>
+    </div> --}}
 
 </x-basecomponent>

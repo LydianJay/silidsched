@@ -40,7 +40,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('room_id');
-            $table->timestamp('reserved_date');
+            $table->date('reserved_date');
             $table->float('duration'); // in hours
         });
 
