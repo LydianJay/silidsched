@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Building;
+use App\Models\Room;
+
 class Dashboard extends Controller
 {
     public function index()
-    {
-        return view("pages.dashboard.home");
+    {  
+        $buildings = Building::withCount('rooms')->get();
+        return view("pages.dashboard.home", ['buildings' => $buildings]);
     }
 }

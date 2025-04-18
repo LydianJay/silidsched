@@ -15,6 +15,13 @@
             border-bottom-right-radius: 20%;
             
             ">
+        <div class="position-absolute top-0 mx-1 mt-3" onclick="openSideBar()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list text-white"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+            </svg>
+        </div>
 
         <div class="w-50 position-absolute end-0 top-0 mt-2 p-2 m-2 rounded-pill" style="background-color: #0D35E5;">
             <p class="fs-7 text-white px-1 text-nowrap fw-bold m-0">Ma'am Jaypee
@@ -53,17 +60,16 @@
     </div>
 
     <div class="w-100 d-flex flex-row  flex-nowrap overflow-scroll">
-        <div class="mt-1 mx-2 px-3 py-1">
-            <img src=" {{ asset('assets/img/DCS building.jpg') }}" style="width: 35vw; height: 35vw; border-radius: 10%;">
-            <p class="text-nowrap fs-6 fw-bold">DCS BUILDING</p>
-            <p class="text-nowrap text-secondary">18 Rooms</p>
-        </div>
+        @foreach ($buildings as $building)
 
-        <div class="mt-1 mx-2 px-3 py-1">
-            <img src=" {{ asset('assets/img/DCS building.jpg') }}" style="width: 35vw; height: 35vw; border-radius: 10%;">
-            <p class="text-nowrap fs-6 fw-bold">DCS BUILDING</p>
-            <p class="text-nowrap text-secondary">18 Rooms</p>
-        </div>
+            <div class="mt-1 mx-2 px-3 py-1" onclick="document.location = '{{ route('reservation', ['bldg_id' => $building['id']] ) }}'">
+                <img src=" {{ asset('storage/buildings/' . $building['building_img']) }}" style="width: 35vw; height: 35vw; border-radius: 10%;">
+                <p class="text-nowrap fs-6 fw-bold">{{ $building['name'] }}</p>
+                <p class="text-nowrap text-secondary">{{ $building['rooms_count'] }} Room(s)</p>
+            </div>
+        @endforeach
+
+        
     </div>
 
 

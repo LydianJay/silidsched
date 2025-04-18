@@ -159,9 +159,31 @@
 </head>
 
 <body>
-
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="sidebar" >
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">SilidSched</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" style="background-image: linear-gradient(to right, #007bff, #00d4ff);">
+            <ul class="list-group">
+                <li class="list-group-item p-0">
+                    @foreach (config('route') as $route)
+                        <button class="btn w-100 btn-sm btn-warning my-1" onclick="document.location='{{ route($route['route']) }}'">{{ $route['name'] }}</button>
+                    @endforeach
+                </li>
+            </ul>
+        </div>
+    </div>
     {{ $slot }}
 
+    <script>
+
+        function openSideBar () {
+            let sidebar = new bootstrap.Offcanvas(document.getElementById('sidebar'));
+            sidebar.show();
+        }
+        
+    </script>
     
 </body>
 

@@ -33,7 +33,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('building_id');
             $table->string('room_name');
-            $table->enum('status', ['vacant', 'reserved', 'occupied']);
+            $table->enum('status', ['vacant', 'reserved', 'occupied'])->default('vacant');
         });
 
         Schema::create('reservation', function (Blueprint $table) {
