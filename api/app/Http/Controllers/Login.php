@@ -32,7 +32,9 @@ class Login extends Controller
             'password'  => bcrypt($data['password']),
             'idnum'     => $data['idnum'],
         ]);
-        return redirect("home");
+
+
+        return redirect()->route('home')->with('msg','Registered Successfuly');
     }
 
     public function login(Request $request) {

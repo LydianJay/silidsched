@@ -60,4 +60,41 @@
 
 
 
+    @if($errors->any())
+
+        <div class="modal fade" id="msg" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">
+                            Registration
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @foreach ($errors->all() as $error)
+                            <p class="fs-5 fw-bold text-danger">{{ $error }}</p>
+
+                        @endforeach
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const myModal = new bootstrap.Modal(
+                document.getElementById("msg"),
+            );
+            myModal.show();
+        </script>
+
+    @endif
+    
+
+
 </x-basecomponent>
