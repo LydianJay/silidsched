@@ -1,0 +1,2 @@
+C:/Users/Sam Juanite/Documents/Flutter/silidsched/app/android/app/.cxx/RelWithDebInfo/6c625m20/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/Sam Juanite/Documents/Flutter/silidsched/app/android/app/.cxx/RelWithDebInfo/6c625m20/arm64-v8a/CMakeFiles/rebuild_cache.dir
