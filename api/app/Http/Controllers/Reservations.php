@@ -10,9 +10,13 @@ class Reservations extends Controller
 {
     public function index() {
 
+        $res = ReservationModel::with('room.building')
+        ->where('user_id', \Illuminate\Support\Facades\Auth::user()->id)
+        ->get();
 
+        // dd($res);
 
-        return view('pages.dashboard.reservation.view');
+        return view('pages.dashboard.reservation.view', ['reservations' => $res]);
     }
 
 

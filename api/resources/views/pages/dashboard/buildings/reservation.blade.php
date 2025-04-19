@@ -44,9 +44,9 @@
                             </div>
                             <div class="col p-0">
                                 <p class="fs-2 my-0 {{ $building['status'] == 'vacant' ? 'text-success' : 'text-danger' }}"><span class="text-secondary fs-5 fw-normal">Status </span>{{ucfirst($building['status'])}}</p>
-                                @if($building['status'] == 'reserved')
-                                    <p class="fs-6 text-secondary text-center mx-1 my-0">2:00-4:00</p>
-                                @endif
+                                {{-- @if($building['status'] == 'reserved')
+                                    <p class="fs-6 text-secondary text-center mx-1 my-0">{{ $building['start_time'] }}-{{ $building['end_time'] }}</p>
+                                @endif --}}
                             </div>
                             <div class="col-3 d-flex flex-column justify-content-center align-items-center p-0">
                                 <button class="btn btn-sm  {{ $building['status'] == 'vacant' ? 'btn-primary' : 'disabled btn-secondary'}} rounded-3" onclick="window.location = '{{ route('reservation', array_merge(request()->query(), ['room_idx' => $key])) }}'">Reserve</button>
