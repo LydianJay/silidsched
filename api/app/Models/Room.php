@@ -16,4 +16,9 @@ class Room extends Model
         'room_name',
         'status',
     ];
+
+    public function building()
+    {
+        return $this->belongsTo(Building::class);
+    }
 }

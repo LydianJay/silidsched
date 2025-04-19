@@ -48,10 +48,15 @@ class Reservations extends Controller
         if ($overlap) {
             return back()->withErrors(['overlap' => 'This room is already reserved during this time.']);
         }
+        else if($duration < 0) { // negative time
+            return back()->withErrors(provider: ['invalid' => 'Invalid time']);
+        }
 
         ReservationModel::create([
             'user_id'       => \Illuminate\Support\Facades\Auth::user()->id,
             'room_id'       => $validated['room_id'],
+            'start_time'    => $time_in,
+            'end_time'      => $time_out,
             'reserved_date' => $validated['date'],
             'duration'      => $duration,
         ]);

@@ -13,7 +13,14 @@ class Reservation extends Model
     protected $fillable = [
         'user_id',
         'room_id',
+        'start_time',
+        'end_time',
         'reserved_date',
-        'duration'
+        'duration',
     ];
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 }

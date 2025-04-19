@@ -23,12 +23,11 @@
             </svg>
         </div>
 
-        <div class="w-50 position-absolute end-0 top-0 mt-2 p-2 m-2 rounded-pill" style="background-color: #0D35E5;">
-            <p class="fs-7 text-white px-1 text-nowrap fw-bold m-0">Ma'am Jaypee
-                <span> 
-                    <img class="rounded-4 mx-2" src="{{ asset('assets/img/generic-avatar.png') }}" alt="" style="width: 32px; height: 32px;"> 
-                </span>
-            </p>
+        <div class="w-50 position-absolute end-0 top-0 mt-2 p-2 m-2 rounded-pill d-flex flex-row justify-content-evenly align-items-center" style="background-color: #0D35E5;">
+            <p class="fs-7 text-white px-1 text-nowrap fw-bold m-0">{{ Auth::user()->name }} </p>
+                    <img class="rounded-4 mx-2" src="{{ asset('assets/img/generic-avatar.png') }}" alt=""
+                        style="width: 32px; height: 32px;">
+
         </div>
         <div class="row position-absolute text-white" style="top: 12%;">
             <div class="col-4">
@@ -46,14 +45,22 @@
         <p class="fs-6 fw-bold">My Reservations</p>
         <a href="{{ route('view_reservation') }}" class="fw-bold">View All</a>
     </div>
-
-    <div class="w-100 d-flex flex-row  flex-nowrap overflow-scroll">
+    @foreach ($reservations as $r)
+        <div class="w-100 d-flex flex-row  flex-nowrap overflow-scroll">
+            <div class="rounded-2 mt-1 mx-3 border-0 shadow-sm px-3 py-1" style="background-color: #EDF8FE">
+                <p class="text-nowrap fw-bold m-0">{{ date('d M o', strtotime($r->reserved_date)) }} |<span class="fw-normal"> {{ date('h:i a', strtotime($r->start_time)) }} - {{ date('h:i a', strtotime($r->end_time)) }}</span></p>
+                <p class="text-nowrap fs-5 fw-bold">{{ $r->room_name }} | DCS BUILDING</p>
+                <p class="text-nowrap">Duration 60 mins</p>
+            </div>
+        </div>
+    @endforeach
+    {{-- <div class="w-100 d-flex flex-row  flex-nowrap overflow-scroll">
         <div class="rounded-2 mt-1 mx-3 border-0 shadow-sm px-3 py-1" style="background-color: #EDF8FE">
             <p class="text-nowrap fw-bold m-0">25 Feb 2025 |<span class="fw-normal"> 5:30 - 6:30</span></p>
             <p class="text-nowrap fs-5 fw-bold">IT LAB1 | DCS BUILDING</p>
             <p class="text-nowrap">Duration 60 mins</p>
         </div>
-    </div>
+    </div> --}}
 
     <div class="container-fluid d-flex justify-content-between mt-3">
         <p class="fs-6 fw-bold">Check Rooms</p>
@@ -62,7 +69,7 @@
     <div class="w-100 d-flex flex-row  flex-nowrap overflow-scroll">
         @foreach ($buildings as $building)
 
-            <div class="mt-1 mx-2 px-3 py-1" onclick="document.location = '{{ route('reservation', ['bldg_id' => $building['id']] ) }}'">
+            <div class="mt-1 mx-2 px-3 py-1" onclick="document.location = '{{ route('reservation', ['bldg_id' => $building['id']]) }}'">
                 <img src=" {{ asset('storage/buildings/' . $building['building_img']) }}" style="width: 35vw; height: 35vw; border-radius: 10%;">
                 <p class="text-nowrap fs-6 fw-bold">{{ $building['name'] }}</p>
                 <p class="text-nowrap text-secondary">{{ $building['rooms_count'] }} Room(s)</p>
