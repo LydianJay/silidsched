@@ -2,14 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'dart:io';
+import 'package:dio/dio.dart';
+
 WebViewEnvironment? webViewEnvironment;
 
 bool kDebugMode = true;
 bool kIsWeb = false;
-final defaultTargetPlatform = TargetPlatform.android;
+const defaultTargetPlatform = TargetPlatform.android;
+@pragma('vm:entry-point')
+void callProgressCallBack(String id, int status, int progress) {
+  debugPrint("Download task ID: $id, status: $status, progress: $progress");
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await InAppWebViewController.setWebContentsDebuggingEnabled(true);
+  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+  await FlutterDownloader.registerCallback(callProgressCallBack);
   runApp(const MyApp());
 }
 
@@ -40,7 +51,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
- final GlobalKey webViewKey = GlobalKey();
+  final GlobalKey webViewKey = GlobalKey();
 
   InAppWebViewController? webViewController;
   InAppWebViewSettings settings = InAppWebViewSettings(
@@ -53,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
   PullToRefreshController? pullToRefreshController;
 
   late ContextMenu contextMenu;
-  String url = "https://silidsched.nemsu-rfidas.site/";
+  String url = "https://uploader.nemsu-rfidas.site/";
   double progress = 0;
   final urlController = TextEditingController();
 
@@ -67,23 +78,23 @@ class _MyHomePageState extends State<MyHomePage> {
               id: 1,
               title: "Special",
               action: () async {
-                print("Menu item Special clicked!");
-                print(await webViewController?.getSelectedText());
+                debugPrint("Menu item Special clicked!");
+                debugPrint(await webViewController?.getSelectedText());
                 await webViewController?.clearFocus();
               })
         ],
         settings: ContextMenuSettings(hideDefaultSystemContextMenuItems: false),
         onCreateContextMenu: (hitTestResult) async {
-          print("onCreateContextMenu");
-          print(hitTestResult.extra);
-          print(await webViewController?.getSelectedText());
+          debugPrint("onCreateContextMenu");
+          debugPrint(hitTestResult.extra);
+          debugPrint(await webViewController?.getSelectedText());
         },
         onHideContextMenu: () {
-          print("onHideContextMenu");
+          debugPrint("onHideContextMenu");
         },
         onContextMenuActionItemClicked: (contextMenuItemClicked) async {
           var id = contextMenuItemClicked.id;
-          print("onContextMenuActionItemClicked: " +
+          debugPrint("onContextMenuActionItemClicked: " +
               id.toString() +
               " " +
               contextMenuItemClicked.title);
@@ -114,21 +125,51 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+  Future<void> downloadFileWithSession(String url, String sessionCookie) async {
+    try {
+      final dio = Dio();
+      final dir = await FilePicker.platform.getDirectoryPath();
+      const fileName = "Downloaded_File.docx";
+      final savePath = "$dir/$fileName";
+
+      final response = await dio.download(
+        url,
+        savePath,
+        options: Options(
+          headers: {
+            "Cookie": "laravel_session=$sessionCookie",
+          },
+          responseType: ResponseType.bytes,
+          followRedirects: true,
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        debugPrint("File downloaded to $savePath");
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Download completed!")),
+        );
+      } else {
+        debugPrint("Download failed: ${response.statusCode}");
+      }
+    } catch (e) {
+      debugPrint("Download error: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
             child: Column(children: <Widget>[
-          
           Expanded(
             child: Stack(
               children: [
                 InAppWebView(
                   key: webViewKey,
                   webViewEnvironment: webViewEnvironment,
-                  initialUrlRequest:
-                      URLRequest(url: WebUri('https://silidsched.nemsu-rfidas.site/')),
+                  initialUrlRequest: URLRequest(url: WebUri(url)),
                   // initialUrlRequest:
                   // URLRequest(url: WebUri(Uri.base.toString().replaceFirst("/#/", "/") + 'page.html')),
                   // initialFile: "assets/index.html",
@@ -200,7 +241,38 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
                   },
                   onConsoleMessage: (controller, consoleMessage) {
-                    print(consoleMessage);
+                    debugPrint(consoleMessage.toString());
+                  },
+                  onDownloadStartRequest:
+                      (controller, downloadStartRequest) async {
+                    String? url = downloadStartRequest.url.toString();
+                    // String? filePath =
+                    //     await FilePicker.platform.getDirectoryPath();
+
+                    CookieManager cookieManager = CookieManager.instance();
+                    List<Cookie> cookies =
+                        await cookieManager.getCookies(url: WebUri(this.url));
+
+                    String? sessionCookie = cookies
+                        .firstWhere((c) => c.name == "laravel_session",
+                            orElse: () => Cookie(name: "empty"))
+                        .value;
+
+                    if (sessionCookie != null && sessionCookie.isNotEmpty) {
+                      await downloadFileWithSession(url, sessionCookie);
+                    } else {
+                      debugPrint("Session cookie not found.");
+                    }
+                    // if (filePath != null) {
+                    //   final taskId = await FlutterDownloader.enqueue(
+                    //     url: url,
+                    //     savedDir: filePath,
+                    //     showNotification: true,
+                    //     openFileFromNotification: true,
+                    //   );
+                    //   debugPrint(
+                    //       "Download task ID: $taskId for $url, path: $filePath");
+                    // }
                   },
                 ),
                 progress < 1.0
@@ -209,7 +281,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          
         ])));
   }
 }
