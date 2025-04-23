@@ -5,6 +5,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
 
 WebViewEnvironment? webViewEnvironment;
 
@@ -128,10 +131,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> downloadFileWithSession(String url, String sessionCookie) async {
     try {
       final dio = Dio();
-      final dir = await FilePicker.platform.getDirectoryPath();
-      const fileName = "Downloaded_File.docx";
-      final savePath = "$dir/$fileName";
-
+      final dir = Directory('/storage/emulated/0/Download');
+      final hashed = md5.convert(utf8.encode(url)).toString();
+      final fileName = "$hashed.docx";
+      final savePath = "${dir.path}/$fileName";
+      debugPrint("Downloading file to $savePath");
       final response = await dio.download(
         url,
         savePath,
@@ -151,9 +155,15 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       } else {
         debugPrint("Download failed: ${response.statusCode}");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(response.statusCode.toString())),
+        );
       }
     } catch (e) {
       debugPrint("Download error: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
     }
   }
 
@@ -259,7 +269,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         .value;
 
                     if (sessionCookie != null && sessionCookie.isNotEmpty) {
-                      await downloadFileWithSession(url, sessionCookie);
+                      Permission.storage.request().then((status) async {
+                        if (status.isGranted) {
+                          await downloadFileWithSession(url, sessionCookie);
+                          debugPrint("Storage permission granted");
+                        } else {
+                          debugPrint("Storage permission denied");
+                        }
+                      });
                     } else {
                       debugPrint("Session cookie not found.");
                     }
