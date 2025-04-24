@@ -67,7 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
   PullToRefreshController? pullToRefreshController;
 
   late ContextMenu contextMenu;
-  String url = "https://uploader.nemsu-rfidas.site/";
+  String url = const String.fromEnvironment('APP_URL',
+      defaultValue: "https://uploader.nemsu-rfidas.site/");
+
   double progress = 0;
   final urlController = TextEditingController();
 

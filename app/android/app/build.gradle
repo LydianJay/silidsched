@@ -32,6 +32,21 @@ android {
         versionName = flutter.versionName
     }
 
+
+    flavorDimensions "app"
+    productFlavors {
+        appOne {
+            dimension "app"
+            applicationId "com.silidsched.appone"
+            resValue "string", "app_name", "SilidSched"
+        }
+        appTwo {
+            dimension "app"
+            applicationId "com.uploader.apptwo"
+            resValue "string", "app_name", "CapstoneUploader"
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
