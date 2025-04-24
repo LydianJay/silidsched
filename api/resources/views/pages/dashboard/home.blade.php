@@ -50,7 +50,7 @@
         @foreach ($reservations as $r)
             <div class="rounded-2 mt-1 mx-3 border-0 shadow-sm px-3 py-1" style="background-color: #EDF8FE">
                 <p class="text-nowrap fw-bold m-0">{{ date('d M o', strtotime($r->reserved_date)) }} |<span class="fw-normal"> {{ date('h:i a', strtotime($r->start_time)) }} - {{ date('h:i a', strtotime($r->end_time)) }}</span></p>
-                <p class="text-nowrap fs-5 fw-bold">{{ $r->room_name }} | DCS BUILDING</p>
+                <p class="text-nowrap fs-5 fw-bold">{{ $r->room->room_name }} | {{$r->room->building->name}} BUILDING</p>
                 <p class="text-nowrap">Duration {{ (strtotime($r->end_time) - strtotime($r->start_time)) / 60 }} mins</p>
             </div>
         @endforeach

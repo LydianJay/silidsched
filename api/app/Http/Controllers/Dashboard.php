@@ -25,6 +25,7 @@ class Dashboard extends Controller
         ->where('user_id', Auth::id())
         ->get();
 
+
         return view("pages.dashboard.home", ['buildings' => $buildings, 'reservations' => $reservations]);
     }
 
