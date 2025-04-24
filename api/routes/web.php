@@ -16,6 +16,7 @@ Route::post('/login', [Login::class,'login'])->name('login');
 
 
 Route::get('/qr', [Reservations::class, 'generateQR'])->name('qr');
+Route::get('/occupy', [Reservations::class, 'occupy'])->name('occupy');
 
 Route::middleware(['auth'])->group(function (){
     Route::get('/dashboard', [Dashboard::class,   'index'])->name(    'dashboard');
@@ -29,5 +30,4 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/reservation', [Building::class, 'reservation'])->name('reservation');
 
     Route::post('/add_reservation', [Reservations::class, 'reserve'])->name('add_reservation');
-    Route::get('/occupy', [Reservations::class, 'occupy'])->name('occupy');
 });

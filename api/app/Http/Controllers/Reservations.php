@@ -102,7 +102,6 @@ class Reservations extends Controller
     public function occupy(Request $request) {
         $id = $request['id'];
         $res = ReservationModel::with('room.building')
-        ->where('user_id', \Illuminate\Support\Facades\Auth::user()->id)
         ->where('room_id', $id)
         ->first();
 
