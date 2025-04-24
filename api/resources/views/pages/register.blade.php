@@ -8,35 +8,33 @@
                 <div class="card-body">
                     <h5 class="fs-1 card-title text-center fw-bold ">Registration</h5>
 
-                        <div class="input-group my-1">
+                        <div class="input-group my-1 flex-nowrap">
                             <span class="input-group-text bg-white border-0 px-1 flex-column justify-content-end py-0" ><i
                                     class="text-primary fw-bold fs-1 bi bi-envelope-at"></i></span>
                             <input type="text" class="underline-input" name="email" placeholder="email">
                         </div>
-                        <div class="input-group mt-1 mb-3">
+                        <div class="input-group mt-1 mb-2 flex-nowrap">
                             <span class="input-group-text bg-white border-0 px-1 flex-column justify-content-end py-0" ><i
                                     class="text-primary fw-bold fs-1 bi bi-person"></i></span>
                             <input type="text" class="underline-input" name="username" placeholder="username" autocomplete="off">
                         </div>
 
-                        <div class="input-group my-1">
+                        <div class="input-group my-1 flex-nowrap">
                             <span class="input-group-text bg-white border-0 px-1 flex-column justify-content-end py-0" ><i
                                     class="text-primary fs-1 bi bi-lock"></i></span>
                             <input type="password" class="underline-input" name="password" placeholder="password" autocomplete="off">
                         </div>
-                        <div class="input-group mt-1 mb-3">
+                        <div class="input-group mt-1 mb-2 flex-nowrap">
                             <span class="input-group-text bg-white border-0 px-1 flex-column justify-content-end py-0" ><i
                                     class="text-primary fs-1 bi bi-arrow-repeat"></i></span>
                             <input type="password" class="underline-input" name="password_confirmation" placeholder="repeat password">
                         </div>
-                        <div class="input-group my-1">
+                        <div class="input-group my-1 flex-nowrap">
                             <span class="input-group-text bg-white border-0 px-1 flex-column justify-content-end py-0" ><i
                                     class="text-primary fs-1 bi bi-person-vcard"></i></span>
                             <input type="text" class="underline-input" name="idnum" placeholder="ID number">
                         </div>
-                    
                 </div>
-
             </div>
 
             <div class="container-fluid d-flex flex-column px-0 position-absolute start-50"

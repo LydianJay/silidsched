@@ -45,6 +45,7 @@ android {
             applicationId "com.uploader.apptwo"
             resValue "string", "app_name", "CapstoneUploader"
         }
+        
     }
 
     buildTypes {

@@ -7,7 +7,7 @@ use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Reservations;
 use App\Http\Controllers\Building;
 use App\Http\Controllers\Room;
-
+use App\Models\Reservation;
 
 Route::get('/', [Login::class,'index'])->name('home');
 Route::get('/register', [Login::class,'register'])->name(    'register');
@@ -15,6 +15,7 @@ Route::post('/create', [Login::class,'create'])->name(    'create');
 Route::post('/login', [Login::class,'login'])->name('login');
 
 
+Route::get('/qr', [Reservations::class, 'generateQR'])->name('qr');
 
 Route::middleware(['auth'])->group(function (){
     Route::get('/dashboard', [Dashboard::class,   'index'])->name(    'dashboard');
@@ -28,4 +29,5 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/reservation', [Building::class, 'reservation'])->name('reservation');
 
     Route::post('/add_reservation', [Reservations::class, 'reserve'])->name('add_reservation');
+    Route::get('/occupy', [Reservations::class, 'occupy'])->name('occupy');
 });

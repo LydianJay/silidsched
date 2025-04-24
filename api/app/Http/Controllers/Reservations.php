@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Reservation as ReservationModel;
 use App\Models\Room;
 use Carbon\Carbon;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Response;
 class Reservations extends Controller
 {
     public function index() {
@@ -70,5 +72,54 @@ class Reservations extends Controller
         );
 
         return redirect()->route('reservation', request()->except('room_idx'))->with('success','Reserved Room');
+    }
+
+
+    public function generateQR(Request $request) {
+
+        $id = $request->query('id'); // safer than $request['id']
+
+        $res = ReservationModel::with('room.building')->where('room_id', $id)->first();
+
+        if (!$res) {
+            abort(404, 'Reservation not found');
+        }
+
+        $qrContent = route('occupy', ['id' => $res->id]);
+
+        $pngData = QrCode::format('svg')
+            ->size(400)
+            ->backgroundColor(255, 255, 255)
+            ->color(0, 0, 0)
+            ->margin(1)
+            ->generate($qrContent);
+
+        return view('pages.dashboard.reservation.qr', [
+            'qrCode' => $pngData,
+        ]);
+    }   
+
+    public function occupy(Request $request) {
+        $id = $request['id'];
+        $res = ReservationModel::with('room.building')
+        ->where('user_id', \Illuminate\Support\Facades\Auth::user()->id)
+        ->where('room_id', $id)
+        ->first();
+
+        if ($res) {
+            $res->update([
+                'status' => 'occupied'
+            ]);
+
+            Room::find($res->room_id)->update(
+                ['status' => 'occupied']
+            );
+
+            return back()->with('success','Occupied Room');
+        } else {
+            return back()->withErrors(['not_found' => 'Reservation not found']);
+        }
+
+
     }
 }

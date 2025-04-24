@@ -3,6 +3,10 @@
 
 return [
     [
+        'name' => 'Dashboard',
+        'route' => 'dashboard',
+    ],
+    [
         'name' => 'Add Building',
         'route' => 'add_building', 
     ],
@@ -10,4 +14,5 @@ return [
         'name' => 'Add Room',
         'route' => 'add_room', 
     ],
+
 ];

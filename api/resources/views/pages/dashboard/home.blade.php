@@ -45,15 +45,17 @@
         <p class="fs-6 fw-bold">My Reservations</p>
         <a href="{{ route('view_reservation') }}" class="fw-bold">View All</a>
     </div>
-    @foreach ($reservations as $r)
-        <div class="w-100 d-flex flex-row  flex-nowrap overflow-scroll">
+    <div class="w-100 d-flex flex-row overflow-scroll">
+
+        @foreach ($reservations as $r)
             <div class="rounded-2 mt-1 mx-3 border-0 shadow-sm px-3 py-1" style="background-color: #EDF8FE">
                 <p class="text-nowrap fw-bold m-0">{{ date('d M o', strtotime($r->reserved_date)) }} |<span class="fw-normal"> {{ date('h:i a', strtotime($r->start_time)) }} - {{ date('h:i a', strtotime($r->end_time)) }}</span></p>
                 <p class="text-nowrap fs-5 fw-bold">{{ $r->room_name }} | DCS BUILDING</p>
-                <p class="text-nowrap">Duration 60 mins</p>
+                <p class="text-nowrap">Duration {{ (strtotime($r->end_time) - strtotime($r->start_time)) / 60 }} mins</p>
             </div>
-        </div>
-    @endforeach
+        @endforeach
+    </div>
+
     {{-- <div class="w-100 d-flex flex-row  flex-nowrap overflow-scroll">
         <div class="rounded-2 mt-1 mx-3 border-0 shadow-sm px-3 py-1" style="background-color: #EDF8FE">
             <p class="text-nowrap fw-bold m-0">25 Feb 2025 |<span class="fw-normal"> 5:30 - 6:30</span></p>

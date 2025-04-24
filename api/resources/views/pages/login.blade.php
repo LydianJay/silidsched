@@ -9,13 +9,13 @@
                 <div class="card-body">
                     <h5 class="fs-1 card-title text-center fw-bold ">Welcome!</h5>
             
-                        <div class="input-group mt-5">
+                        <div class="input-group mt-5 flex-nowrap">
                             <span class="input-group-text bg-white border-0 px-1 flex-column justify-content-end py-0">
                                 <i class="text-primary fw-bold fs-1 bi bi-person"></i>
                             </span>
                             <input type="text" name="name" class="underline-input" placeholder="username" autocomplete="off">
                         </div>
-                        <div class="input-group mt-2 mb-5">
+                        <div class="input-group mt-2 mb-5 flex-nowrap">
                             <span class="input-group-text bg-white border-0 px-1 flex-column justify-content-end py-0">
                                 <i class="text-primary fs-1 bi bi-lock"></i>
                             </span>
