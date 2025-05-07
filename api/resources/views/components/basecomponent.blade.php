@@ -167,8 +167,15 @@
         <div class="offcanvas-body" style="background-image: linear-gradient(to right, #007bff, #00d4ff);">
             <ul class="list-group">
                 <li class="list-group-item p-0">
+                    
                     @foreach (config('route') as $route)
-                        <button class="btn w-100 btn-sm btn-warning my-1" onclick="document.location='{{ route($route['route']) }}'">{{ $route['name'] }}</button>
+                        @if (isset(auth()->user()->role))
+                            @if (in_array(auth()->user()->role, $route['role']))
+                                <button class="btn w-100 btn-sm btn-warning my-1"
+                                    onclick="document.location='{{ route($route['route']) }}'">{{ $route['name'] }}</button>
+                            @endif
+                        @endif
+
                     @endforeach
                 </li>
             </ul>

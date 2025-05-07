@@ -9,6 +9,8 @@ use App\Http\Controllers\Building;
 use App\Http\Controllers\Room;
 use App\Models\Reservation;
 
+use App\Http\Controllers\Admin;
+
 Route::get('/', [Login::class,'index'])->name('home');
 Route::get('/register', [Login::class,'register'])->name(    'register');
 Route::post('/create', [Login::class,'create'])->name(    'create');
@@ -30,4 +32,8 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/reservation', [Building::class, 'reservation'])->name('reservation');
 
     Route::post('/add_reservation', [Reservations::class, 'reserve'])->name('add_reservation');
+
+    Route::get('/admin/users', [Admin::class, 'index'])->name('users');
+    Route::get('/delete_user', [Admin::class, 'delete'])->name('delete_user');
+    Route::get('/logout', [Admin::class, 'logout'])->name('logout');
 });
