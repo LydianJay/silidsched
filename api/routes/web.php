@@ -35,5 +35,6 @@ Route::middleware(['auth'])->group(function (){
 
     Route::get('/admin/users', [Admin::class, 'index'])->name('users');
     Route::get('/delete_user', [Admin::class, 'delete'])->name('delete_user');
+    Route::post('/admin/edit', [Admin::class, 'edit'])->name('users_edit');
     Route::get('/logout', [Admin::class, 'logout'])->name('logout');
 });
