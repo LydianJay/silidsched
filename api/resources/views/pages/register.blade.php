@@ -1,7 +1,7 @@
 <x-basecomponent>
     <div class="position-relative top-0" style=" height: 100vh;">
         <div class="rectangle position-absolute top-0"></div>
-        <form action="{{ route('create') }}" method="POST">
+        <form action="{{ route('create') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card position-absolute start-50 align-items-center w-75 shadow"
                 style="transform: translateX(-50%); top: 10%;">
@@ -33,6 +33,11 @@
                             <span class="input-group-text bg-white border-0 px-1 flex-column justify-content-end py-0" ><i
                                     class="text-primary fs-1 bi bi-person-vcard"></i></span>
                             <input type="text" class="underline-input" name="idnum" placeholder="ID number">
+                        </div>
+                        <div class="input-group my-1 flex-nowrap">
+                            <span class="input-group-text bg-white border-0 px-1 flex-column justify-content-end py-0"><i
+                                    class="text-primary fs-1 bi bi-person-vcard"></i></span>
+                                    <input type="file" class="form-control" name="file" placeholder="Picture">
                         </div>
                 </div>
             </div>

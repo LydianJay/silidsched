@@ -24,14 +24,30 @@ class Login extends Controller
             'email'         => 'required',
             'password'      => 'required|min:8|confirmed',
             'idnum'         => 'required',
+            'file'          => 'nullable|image|mimes:jpeg,png,jpg,gif|max:8182',
         ]);
 
-        User::create([
+        $user = User::create([
             'name'      => $data['username'],
             'email'     => $data['email'],
             'password'  => bcrypt($data['password']),
             'idnum'     => $data['idnum'],
         ]);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            
+            $filename = md5($user->id) . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('uploads/profile', $filename, 'public');
+            $user->profile_pic = $filename;
+        }
+
+        
+
+       
+       
+        
+        $user->save();
 
 
         return redirect()->route('home')->with('msg','Registered Successfuly');
