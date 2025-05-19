@@ -121,4 +121,22 @@ class Reservations extends Controller
 
 
     }
+
+
+
+    public function quit(Request $request) {
+        $validated = $request->validate([
+            'id'   => ['required'],
+            'res'  => ['required'],
+        ]);
+
+        ReservationModel::destroy($validated['res']);
+        Room::find($validated['id'])->update(
+            ['status' => 'vacant']
+        );
+        
+       
+        return back()->with('success','Cancelled Room');
+
+    }
 }

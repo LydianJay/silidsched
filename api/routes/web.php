@@ -27,7 +27,7 @@ Route::middleware(['auth'])->group(function (){
     Route::post('/upload_buildings', [Building::class, 'upload'])->name('upload_building');
     Route::get('/add_room', [Room::class, 'index'])->name('add_room');
     Route::post('/create_room', [Room::class, 'create'])->name('create_room');
-    
+    Route::get('/quit', [Reservations::class, 'quit'])->name('quit');
 
     Route::get('/reservation', [Building::class, 'reservation'])->name('reservation');
 
