@@ -31,4 +31,23 @@ class Room extends Controller
         return back()->with('msg', 'Room Created');
 
     }
+
+
+    public function delete_room_view() {
+        $rooms = RoomModel::all();
+        // dd($rooms);
+        return view('pages.dashboard.room.delete_view', ['rooms' => $rooms]);
+    }
+
+    public function delete(Request $request) {
+        $data = $request->validate(['id' => 'required']);
+
+        $room = RoomModel::find($data['id']);
+        if ($room) {
+            $room->delete();
+            return back()->with('msg', 'Room Deleted');
+        } else {
+            return back()->with('error', 'Room not found');
+        }
+    }
 }

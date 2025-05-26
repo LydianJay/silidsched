@@ -37,4 +37,12 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/delete_user', [Admin::class, 'delete'])->name('delete_user');
     Route::post('/admin/edit', [Admin::class, 'edit'])->name('users_edit');
     Route::get('/logout', [Admin::class, 'logout'])->name('logout');
+
+
+    Route::get('/delete_building', [Building::class, 'delete_view'])->name('delete_building');
+    Route::post('/delete_building', [Building::class, 'delete'])->name('delete_building_post');
+
+
+    Route::get('/delete_room', [Room::class, 'delete_room_view'])->name('delete_room');
+    Route::post('/delete_room', [Room::class, 'delete'])->name('delete_room_post');
 });

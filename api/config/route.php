@@ -10,13 +10,27 @@ return [
     [
         'name'  => 'Add Building',
         'route' => 'add_building', 
-        'role'  => ['user', 'admin'],
+        'role'  => ['admin'],
     ],
+    
+    [
+        'name'  => 'Delete Building',
+        'route' => 'delete_building', 
+        'role'  => ['admin'],
+    ],
+
     [
         'name'  => 'Add Room',
         'route' => 'add_room', 
-        'role'  => ['user', 'admin'],
+        'role'  => ['admin'],
     ],
+
+    [
+        'name'  => 'Delete Room',
+        'route' => 'delete_room', 
+        'role'  => ['admin'],
+    ],
+
     [
         'name'  => 'Users',
         'route' => 'users', 

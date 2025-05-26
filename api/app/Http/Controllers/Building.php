@@ -83,4 +83,24 @@ class Building extends Controller
 
         return back()->with('msg', 'No file selected.');
     }
+
+
+    public function delete_view() {
+        $buildings = BuildingModel::all();
+        return view('pages.dashboard.buildings.delete_view', [
+            'buildings' => $buildings
+        ]);
+    }
+
+    public function delete(Request $request) {
+        $bldg_id = $request->input('building');
+        $building = BuildingModel::find($bldg_id);
+
+        if ($building) {
+            $building->delete();
+            return back()->with('msg', 'Building deleted successfully.');
+        }
+
+        return back()->with('msg', 'Building not found.');
+    }
 }
