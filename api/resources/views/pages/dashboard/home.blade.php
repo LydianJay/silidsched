@@ -2,7 +2,7 @@
     
 
     <div class="container-fluid" 
-        style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://school-infrastructure.org/wp-content/uploads/2024/09/015471_EXT002_LOW-1024x683.jpg'); 
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('{{asset('assets/img/new_bg.jpg')}}'); 
             background-size: cover;
             background-clip: border-box;
             background-position: center;
