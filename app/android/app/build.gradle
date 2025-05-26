@@ -45,6 +45,12 @@ android {
             applicationId "com.uploader.apptwo"
             resValue "string", "app_name", "CapstoneUploader"
         }
+
+        appThree {
+            dimension "app"
+            applicationId "com.elibod.appthree"
+            resValue "string", "app_name", "Elibod"
+        }
         
     }
 
